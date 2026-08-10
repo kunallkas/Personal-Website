@@ -216,6 +216,17 @@
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
+/* System font fallbacks for Devanagari/Telugu render lighter than Fraunces — compensate */
+.hero-headline .accent[data-lang="hi"],
+.hero-headline .accent[data-lang="te"] {
+  -webkit-text-stroke: 1px currentColor;
+  font-weight: 900;
+}
+
+.hero-headline .accent[data-lang="ja"] {
+  font-weight: 900;
+}
+
 .hero-headline .accent.lang-changing {
   opacity: 0;
   transform: translateY(6px);
@@ -1356,10 +1367,9 @@ footer a:hover { opacity: 1; color: var(--accent-warm); }
 }
 
 @media (max-width: 640px) {
-  #hero { padding: 100px 28px 60px; }
+  #hero { min-height: auto; padding: 100px 28px 60px; }
   .hero-headline { font-size: 44px; max-width: none; }
   #framing-engine { padding: 32px 20px; }
-  #hero { min-height: auto; justify-content: flex-start; }
   .framing-top { flex-direction: column; gap: 16px; }
   .scenario-picker { width: 100%; }
   .compare-toggle { display: none; }
