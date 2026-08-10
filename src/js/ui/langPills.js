@@ -30,6 +30,13 @@ export function initLangPills() {
     te: 'సూక్ష్మత.',
   }
 
+  // Shared tooltip element for mobile — one element, always same position
+  const langRow = pills[0].closest('.hero-langs')
+  const sharedTip = document.createElement('div')
+  sharedTip.className = 'lang-tooltip'
+  langRow.appendChild(sharedTip)
+  let tipTimer = null
+
   pills.forEach(pill => {
     pill.addEventListener('click', () => {
       const lang = pill.dataset.lang
@@ -42,11 +49,12 @@ export function initLangPills() {
       scrambleTo(accent, words[lang] || 'nuance.')
     })
 
-    // Mobile: show tooltip briefly on tap then fade out
+    // Mobile: show shared tooltip briefly then fade — no overlap possible
     pill.addEventListener('touchstart', () => {
-      pills.forEach(p => { clearTimeout(p._tipTimer); p.classList.remove('tip-touch') })
-      pill.classList.add('tip-touch')
-      pill._tipTimer = setTimeout(() => pill.classList.remove('tip-touch'), 800)
+      clearTimeout(tipTimer)
+      sharedTip.textContent = pill.dataset.tooltip || ''
+      sharedTip.classList.add('visible')
+      tipTimer = setTimeout(() => sharedTip.classList.remove('visible'), 500)
     }, { passive: true })
   })
 }

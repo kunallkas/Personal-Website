@@ -135,7 +135,30 @@
   margin-bottom: 64px;
   animation: hero-fade-up 0.65s var(--ease-out-expo) both;
   animation-delay: 0.46s;
+  position: relative;
 }
+
+/* Shared mobile tooltip — single element, always centered above pill row */
+.lang-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20,17,15,0.96);
+  color: var(--text-on-dark);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  padding: 5px 9px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 200;
+}
+.lang-tooltip.visible { opacity: 1; }
 
 .lang-pill {
   font-family: var(--font-mono);
@@ -1369,6 +1392,7 @@ footer a:hover { opacity: 1; color: var(--accent-warm); }
 @media (max-width: 640px) {
   #hero { min-height: auto; padding: 100px 28px 60px; }
   .hero-headline { font-size: 44px; max-width: none; }
+  .lang-pill[data-tooltip]::after { display: none; }
   #framing-engine { padding: 32px 20px; }
   .framing-top { flex-direction: column; gap: 16px; }
   .scenario-picker { width: 100%; }
