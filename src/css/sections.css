@@ -1343,7 +1343,8 @@ footer a:hover { opacity: 1; color: var(--accent-warm); }
 @media (max-width: 640px) {
   #hero { padding: 100px 28px 60px; }
   .hero-headline { font-size: 38px; max-width: none; }
-  #framing-engine { padding: 32px 20px; overflow: hidden; }
+  #framing-engine { padding: 32px 20px; }
+  #hero { min-height: auto; justify-content: flex-start; }
   .framing-top { flex-direction: column; gap: 16px; }
   .scenario-picker { width: 100%; }
   .compare-toggle { display: none; }
