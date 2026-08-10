@@ -49,19 +49,10 @@ export function initLangPills() {
       scrambleTo(accent, words[lang] || 'nuance.')
     })
 
-    // Mobile: show shared tooltip above the tapped pill
+    // Mobile: show shared tooltip centered above pill row — same spot for all pills
     pill.addEventListener('touchstart', () => {
       clearTimeout(tipTimer)
       sharedTip.textContent = pill.dataset.tooltip || ''
-
-      // Position above the specific pill, clamped to stay within row bounds
-      const pillCenter = pill.offsetLeft + pill.offsetWidth / 2
-      const tipHalfW = sharedTip.offsetWidth / 2 || 60
-      const rowW = langRow.offsetWidth
-      const clamped = Math.min(Math.max(pillCenter, tipHalfW + 4), rowW - tipHalfW - 4)
-      sharedTip.style.left = clamped + 'px'
-      sharedTip.style.transform = 'translateX(-50%)'
-
       sharedTip.classList.add('visible')
       tipTimer = setTimeout(() => sharedTip.classList.remove('visible'), 2000)
     }, { passive: true })
