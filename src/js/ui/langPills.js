@@ -46,7 +46,7 @@ export function initLangPills() {
     pill.addEventListener('touchstart', () => {
       pills.forEach(p => { clearTimeout(p._tipTimer); p.classList.remove('tip-touch') })
       pill.classList.add('tip-touch')
-      pill._tipTimer = setTimeout(() => pill.classList.remove('tip-touch'), 1200)
+      pill._tipTimer = setTimeout(() => pill.classList.remove('tip-touch'), 800)
     }, { passive: true })
   })
 }
