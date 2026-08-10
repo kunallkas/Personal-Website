@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Preview — Kay's Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── PANELS ─────────────────────────────────────── */
+    .panel {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 40px 80px;
+      gap: 28px;
+      transition: flex 0.4s ease;
+    }
+
+    .divider {
+      width: 1px;
+      background: rgba(255,255,255,0.12);
+      position: relative;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .divider::after {
+      content: 'vs';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      background: #2a2020;
+      padding: 5px 7px;
+      border-radius: 3px;
+    }
+
+    /* ── THEME LABELS ───────────────────────────────── */
+    .theme-label {
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+    .panel-golden .theme-label { color: #EDE6F5; }
+    .panel-ember  .theme-label { color: #F0EAE4; }
+
+    /* ── ANIMATED BACKGROUNDS ───────────────────────── */
+    .panel-golden {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, #3A1F4A 0%, transparent 70%),
+        radial-gradient(ellipse 70% 50% at 80% 70%, #1A1860 0%, transparent 65%),
+        radial-gradient(ellipse 60% 80% at 55% 15%, #2B1B33 0%, transparent 60%),
+        #1D1B3A;
+      background-attachment: fixed;
+    }
+    .panel-golden::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 70% 80%, #2E1640 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 30% 60%, #1D1B3A 0%, transparent 50%);
+      animation: driftGolden 14s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    @keyframes driftGolden {
+      0%   { transform: translate(0px, 0px) scale(1); }
+      33%  { transform: translate(15px, -10px) scale(1.03); }
+      66%  { transform: translate(-10px, 12px) scale(0.98); }
+      100% { transform: translate(8px, -5px) scale(1.02); }
+    }
+
+    .panel-ember {
+      background:
+        radial-gradient(ellipse 80% 60% at 25% 35%, #221410 0%, transparent 70%),
+        radial-gradient(ellipse 70% 55% at 75% 65%, #1F1410 0%, transparent 65%),
+        radial-gradient(ellipse 55% 75% at 50% 20%, #1A1614 0%, transparent 60%),
+        #1A1614;
+      background-attachment: fixed;
+    }
+    .panel-ember::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 65% 75%, #261A14 0%, transparent 60%),
+        radial-gradient(ellipse 45% 55% at 35% 55%, #1A1210 0%, transparent 50%);
+      animation: driftEmber 14s ease-in-out infinite alternate;
+      opacity: 0.7;
+    }
+    @keyframes driftEmber {
+      0%   { transform: translate(0px, 0px) scale(1); }
+      33%  { transform: translate(-12px, 8px) scale(1.02); }
+      66%  { transform: translate(10px, -14px) scale(0.97); }
+      100% { transform: translate(-6px, 6px) scale(1.03); }
+    }
+
+    /* Keep panel contents above ::before */
+    .panel > * { position: relative; z-index: 1; }
+
+    /* ── NAV SAMPLE ─────────────────────────────────── */
+    .nav-sample {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-link:hover { opacity: 1 !important; }
+
+    .panel-golden .nav-link          { color: #9E8FAD; opacity: 0.8; }
+    .panel-golden .nav-link.resume   {
+      color: #F2A65A;
+      border: 1px solid rgba(242,166,90,0.45);
+      padding: 4px 12px;
+      border-radius: 3px;
+      opacity: 1;
+    }
+
+    .panel-ember .nav-link           { color: #9A8E87; opacity: 0.8; }
+    .panel-ember .nav-link.resume    {
+      color: #E85D3A;
+      border: 1px solid rgba(232,93,58,0.45);
+      padding: 4px 12px;
+      border-radius: 3px;
+      opacity: 1;
+    }
+
+    /* ── HERO TEXT ──────────────────────────────────── */
+    .hero-block { text-align: center; }
+
+    .hero-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 3vw, 48px);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+    .panel-golden .hero-headline { color: #EDE6F5; }
+    .panel-ember  .hero-headline { color: #F0EAE4; }
+
+    .hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .panel-golden .hero-sub { color: #9E8FAD; }
+    .panel-ember  .hero-sub { color: #9A8E87; }
+
+    /* ── ACCENT PILLS ───────────────────────────────── */
+    .accent-row { display: flex; gap: 8px; }
+
+    .acc {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .panel-golden .acc.warm { background: rgba(242,166,90,0.14); color: #F2A65A; border: 1px solid rgba(242,166,90,0.35); }
+    .panel-golden .acc.cool { background: rgba(43,168,143,0.14); color: #2BA88F; border: 1px solid rgba(43,168,143,0.35); }
+    .panel-ember  .acc.warm { background: rgba(232,93,58,0.14);  color: #E85D3A; border: 1px solid rgba(232,93,58,0.35); }
+    .panel-ember  .acc.cool { background: rgba(43,168,143,0.14); color: #2BA88F; border: 1px solid rgba(43,168,143,0.35); }
+
+    /* ── WORK CARD ──────────────────────────────────── */
+    .card {
+      background: #F6F1E8;
+      border-radius: 4px;
+      padding: 22px 24px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.22), 0 8px 32px rgba(0,0,0,0.18);
+    }
+
+    .card-result {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .panel-golden .card-result { color: #2B1B33; }
+    .panel-ember  .card-result { color: #1A1614; }
+
+    .card-role {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .panel-golden .card-role { color: #2B1B33; }
+    .panel-ember  .card-role { color: #1A1614; }
+
+    .card-setup {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .panel-golden .card-setup { color: #6B5B7A; }
+    .panel-ember  .card-setup { color: #5C4E49; }
+
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .panel-golden .tag.tool { background: rgba(43,168,143,0.10); color: #2BA88F; border: 1px solid rgba(43,168,143,0.28); }
+    .panel-golden .tag.city { background: rgba(242,166,90,0.10); color: #F2A65A; border: 1px solid rgba(242,166,90,0.28); }
+    .panel-ember  .tag.tool { background: rgba(43,168,143,0.10); color: #2BA88F; border: 1px solid rgba(43,168,143,0.28); }
+    .panel-ember  .tag.city { background: rgba(232,93,58,0.10);  color: #E85D3A; border: 1px solid rgba(232,93,58,0.28); }
+
+    /* ── SECTION HEADER SAMPLE ──────────────────────── */
+    .section-sample {
+      text-align: left;
+      width: 100%;
+      max-width: 360px;
+    }
+    .section-header {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(22px, 2.2vw, 32px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .panel-golden .section-header { color: #EDE6F5; }
+    .panel-ember  .section-header { color: #F0EAE4; }
+
+    .section-accent-line {
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      border-radius: 1px;
+      margin-top: 6px;
+    }
+    .panel-golden .section-accent-line { background: #F2A65A; }
+    .panel-ember  .section-accent-line { background: #E85D3A; }
+
+    /* ── TOGGLE BUTTONS ─────────────────────────────── */
+    .btn-row {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 200;
+    }
+    .btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-g  { background: #F2A65A; color: #2B1B33; font-weight: 600; }
+    .btn-sp { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.18); }
+    .btn-e  { background: #E85D3A; color: #F6F1E8; font-weight: 600; }
+
+    /* Full-screen mode classes */
+    body.show-golden .panel-ember,
+    body.show-golden .divider { display: none; }
+    body.show-ember .panel-golden,
+    body.show-ember .divider   { display: none; }
+
+    /* ── SCROLLBAR HIDE ─────────────────────────────── */
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ GOLDEN HOUR ══════════════════════════════════ -->
+  <div class="panel panel-golden">
+    <span class="theme-label">Theme 01 — Golden Hour</span>
+
+    <div class="nav-sample">
+      <a href="#" class="nav-link">Work</a>
+      <a href="#" class="nav-link">Projects</a>
+      <a href="#" class="nav-link">Contact</a>
+      <a href="#" class="nav-link resume">Resume ↗</a>
+    </div>
+
+    <div class="hero-block">
+      <div class="hero-headline">Strategy lives<br>in the nuance.</div>
+      <div class="hero-sub">Kunal Vinod Kashyap · Kay<br>MSBAIM Purdue '27 · Strategy Consulting</div>
+    </div>
+
+    <div class="accent-row">
+      <span class="acc warm">Marigold #F2A65A</span>
+      <span class="acc cool">Jade Teal #2BA88F</span>
+    </div>
+
+    <div class="section-sample">
+      <div class="section-header">Work</div>
+      <div class="section-accent-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-result">+38% Engagement</div>
+      <div class="card-role">Program Analyst · Kent State Career Services · Kent, OH</div>
+      <div class="card-setup">Student engagement data existed in silos — no one had connected workshop attendance, applications, and outcomes into a single picture.</div>
+      <div class="card-tags">
+        <span class="tag tool">RStudio</span>
+        <span class="tag tool">Power BI</span>
+        <span class="tag tool">Tableau</span>
+        <span class="tag city">Kent, OH</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ════════════════════════════════════════ -->
+  <div class="divider"></div>
+
+  <!-- ══ INK & EMBER ════════════════════════════════════ -->
+  <div class="panel panel-ember">
+    <span class="theme-label">Theme 02 — Ink &amp; Ember</span>
+
+    <div class="nav-sample">
+      <a href="#" class="nav-link">Work</a>
+      <a href="#" class="nav-link">Projects</a>
+      <a href="#" class="nav-link">Contact</a>
+      <a href="#" class="nav-link resume">Resume ↗</a>
+    </div>
+
+    <div class="hero-block">
+      <div class="hero-headline">Strategy lives<br>in the nuance.</div>
+      <div class="hero-sub">Kunal Vinod Kashyap · Kay<br>MSBAIM Purdue '27 · Strategy Consulting</div>
+    </div>
+
+    <div class="accent-row">
+      <span class="acc warm">Ember Coral #E85D3A</span>
+      <span class="acc cool">Jade Teal #2BA88F</span>
+    </div>
+
+    <div class="section-sample">
+      <div class="section-header">Work</div>
+      <div class="section-accent-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-result">+38% Engagement</div>
+      <div class="card-role">Program Analyst · Kent State Career Services · Kent, OH</div>
+      <div class="card-setup">Student engagement data existed in silos — no one had connected workshop attendance, applications, and outcomes into a single picture.</div>
+      <div class="card-tags">
+        <span class="tag tool">RStudio</span>
+        <span class="tag tool">Power BI</span>
+        <span class="tag tool">Tableau</span>
+        <span class="tag city">Kent, OH</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOGGLE BUTTONS ════════════════════════════════ -->
+  <div class="btn-row">
+    <button class="btn btn-g"  onclick="document.body.className='show-golden'">Full — Golden Hour</button>
+    <button class="btn btn-sp" onclick="document.body.className=''">Split View</button>
+    <button class="btn btn-e"  onclick="document.body.className='show-ember'">Full — Ink &amp; Ember</button>
+  </div>
+
+</body>
+</html>
