@@ -41,5 +41,12 @@ export function initLangPills() {
       accent.dataset.lang = lang
       scrambleTo(accent, words[lang] || 'nuance.')
     })
+
+    // Mobile: show tooltip briefly on tap then fade out
+    pill.addEventListener('touchstart', () => {
+      pills.forEach(p => { clearTimeout(p._tipTimer); p.classList.remove('tip-touch') })
+      pill.classList.add('tip-touch')
+      pill._tipTimer = setTimeout(() => pill.classList.remove('tip-touch'), 1200)
+    }, { passive: true })
   })
 }
