@@ -138,12 +138,12 @@
   position: relative;
 }
 
-/* Shared mobile tooltip — single element, always centered above pill row */
+/* Shared mobile tooltip — pinned above left edge of pill row */
 .lang-tooltip {
   position: absolute;
   bottom: calc(100% + 7px);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   background: rgba(20,17,15,0.96);
   color: var(--text-on-dark);
   font-family: var(--font-mono);
