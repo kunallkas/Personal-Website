@@ -91,3 +91,16 @@
   background: var(--accent-warm);
   color: var(--bg-base);
 }
+
+@media (max-width: 640px) {
+  #nav {
+    grid-template-columns: auto 1fr;
+    padding: 16px 20px;
+  }
+  .nav-links {
+    gap: 18px;
+    justify-content: flex-end;
+  }
+  .nav-links a { font-size: 0.75rem; }
+  .nav-resume { display: none; }
+}
